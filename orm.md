@@ -132,7 +132,7 @@ This will execute a SQL statement such as this:
 
 The record will be deleted from the database but the object instance will remain in memory in Ruby. This is because method call to an object cannot destroy the object it is called on from memory.
 
-_Note:_ Since `same_contact` will no longer point to a valid, existing record in the database, using ORM methods like `save` and `destroy` (again) will likely cause a postgres error/exception. That's okay for now (we can prevent this by throwing our own exception to the caller instead of attempting to execute an invalid query; but let's leave that for "Bonus")
+_Note:_ Since `same_contact` will no longer point to a valid, existing record in the database, using ORM methods like `save` and `destroy` (again) will likely cause a postgres error/exception. That's okay for now (we can prevent this by throwing our own exception to the caller instead of attempting to execute an invalid query; but let's leave that for now)
 
 Attempting to find contact with id 5 now will naturally not yield a contact (since it was just deleted):
 
@@ -157,3 +157,52 @@ _Ask yourself / discuss / experiment:_
 * Do I understand what's going on here?
 * How do I use the gem to perform an INSERT or UPDATE instead? (Hint: Check the gem's docs)
 * Can I modify the script to query the books table instead?
+
+## High-level Steps
+
+Below are some steps to help you get started with your refactoring your contact list app to support a database.
+
+#### 1. Create a new DB on Heroku
+
+You've done this previously. Nothing special here.
+
+#### 2. Connect to it via `psql` or pgAdmin
+
+Since we'll be executing only simple SQL statements, I suggest using `psql`.
+
+#### 3. Create a `contacts` table
+
+Using `psql`, execute the following SQL statement against the (currently empty) database that you just created:
+
+    CREATE TABLE contacts (
+      id        integer NOT NULL PRIMARY KEY,
+      firstname varchar(40) NOT NULL,
+      lastname  varchar(40) NOT NULL,
+      email     varchar(40) NOT NULL
+    );
+
+#### 4. Insert some (seed) records
+
+Execute multiple `INSERT` statements (again, through `psql`) to create some dummy records in the `contacts` table so your app will always have contacts to load/find.
+
+#### 5. Create a new branch
+
+Within your contacts list app, create and checkout a new branch called `orm` or something like that:
+
+    git checkout -b orm
+
+This way you can work on and commit/push to a separate branch, and merge back to master  later once it's all complete.
+
+#### 6. Implement connection logic
+
+All the `orm` methods that need to talk to the PG db need a connection first. Create a `connection` __class method__ on the Contact class that establishes the connection (using the proper heroku credentials)
+
+### 7. Implement `new` and `save` workflow
+
+As you implement this workflow, consider using `irb` or `pry` to "drive" (manually test) your new code. Since this is all pretty new to you, don't worry about TDD or your tests (for now).
+
+A better alternative to manually testing/driving your Contact methods using pry, is to write a short ruby script that runs that code instead, so you don't have to manually launch and run those ruby commands each time you want to test/drive your code.
+
+### 8. Implement other methods
+
+As always, work iteratively! Don't try to implement all the methods at once.
