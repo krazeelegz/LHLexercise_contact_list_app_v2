@@ -176,7 +176,7 @@ Since we'll be executing only simple SQL statements, I suggest using `psql`.
 Using `psql`, execute the following SQL statement against the (currently empty) database that you just created:
 
     CREATE TABLE contacts (
-      id        integer NOT NULL PRIMARY KEY,
+      id        serial NOT NULL PRIMARY KEY,
       firstname varchar(40) NOT NULL,
       lastname  varchar(40) NOT NULL,
       email     varchar(40) NOT NULL
