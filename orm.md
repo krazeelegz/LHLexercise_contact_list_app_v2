@@ -4,19 +4,19 @@ Week 3 Day 2 - ORMs
 ## Introduction
 
 Working directly with SQL in our Ruby code is cumbersome and annoying.
-Why? Because in languages like Ruby, we like to works with classes, instances, and their attributes; not tables, rows and columns.
+Why? Because in languages like Ruby, we like to work with classes, instances, and their attributes; not tables, rows and columns.
 
 For this reason, many frameworks provide what's called an "ORM", an Object-Relational-Mapping.
 
 Wikipedia has a good [overview of ORMs](http://en.wikipedia.org/wiki/Object-relational_mapping) (read the intro and overview sections only).
 
-The goal in this assignment is to build an mini-ORM of our own, before we use "ActiveRecord", the ORM of choice for Ruby / Rails developers.
-
 ## Our Goal
+
+The goal in this assignment is to build an mini-ORM of our own, before we start to use "ActiveRecord", the ORM of choice for Ruby / Rails developers.
 
 It would definitely be nice to store the contacts for our recently created app onto the disk, instead of just in an array in the program's runtime memory. This way, the contacts won't disappear when you quit the program.
 
-Instead of storing the contacts in CSV (which is a bit of work to implement and yet not very flexible), we should use an RDBMS (Relational Database Management System) like PG (Postgres) to keep track of our contacts.
+Instead of storing the contacts in CSV (don't worry if you didn't implement this), which is a bit of work to implement and yet not very flexible, we can use an RDBMS (Relational Database Management System) like PG (Postgres) to store and retrieve our contact records.
 
 ## Contact class Interface
 
@@ -30,7 +30,7 @@ The constructor / initializer. Used to represent a contact instance in memory. D
 
 #### `Contact#save`
 
-Either inserts or or updates a row in the database, as necessary for the given instance of contact.
+Either inserts or updates a row in the database, as necessary for the given instance of contact.
 
 _Ask yourself / discuss:_ When `save` is called, how will it know whether to run an `INSERT` or `UPDATE` SQL statement?
 
@@ -44,6 +44,8 @@ _Ask yourself / discuss:_ What will it need to provide the database as part of t
 
 A class method to `SELECT` a contact row from the database by `id` and return a `Contact` instance that represents ("maps to") that row.
 
+_Ask yourself / discuss:_ Why is this a class method and not an instance method?
+
 #### `Contact.find_all_by_lastname(name)`
 
 Another class method, but this one returns an array of all contacts that have the provided last name. If none are found, an empty array should be returned.
@@ -56,19 +58,18 @@ Same as `Contact.find_all_by_lastname(name)` but for last name instead.
 
 #### `Contact.find_by_email(email)`
 
-Since emails are assumed to be unique, we return only a single record (or `nil`) here. Hence why we use `find_by_` instead of `find_all_by` for this method name.
+Almost identical to the other two methods above. However, since emails are assumed to be unique, we return only a single record (or `nil`) here. Hence why we use `find_by_` instead of `find_all_by` for this method name.
 
 ## Code Walkthrough
 
-Here's an example walkthrough of how the Contact class would be used and how the methods would interact with the database.
-
+Here's an example walkthrough ("driver" code) for how the Contact class (ORM) would be used and how the methods would interact with the database.
 
 ### Creating a new record
 
     contact = Contact.new("Khurram", "Virani", "kv@gmail.com")
     contact.save
 
-`save` would trigger an `INSERT` SQL statement to be sent to the database to add the contact into the the `contacts` table in our postgres database:
+Here, `save` would trigger an `INSERT` SQL statement to be sent to the database to add the contact into the the `contacts` table in our postgres database:
 
     INSERT INTO contacts (firstname, lastname, email)
       VALUES ('Khurram', 'Virani', 'kv@gmail.com')
