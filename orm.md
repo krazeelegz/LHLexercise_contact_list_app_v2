@@ -24,37 +24,37 @@ Given that we already have our app laid out in an OO way, and have a Contact cla
 
 Below is a list of methods that should ideally be implemented (_`#` implies instance method and `.` implies class method._):
 
-### `Contact.new(firstname, lastname, email)`
+#### `Contact.new(firstname, lastname, email)`
 
 The constructor / initializer. Used to represent a contact instance in memory. Does not talk to the database.
 
-### `Contact#save`
+#### `Contact#save`
 
 Either inserts or or updates a row in the database, as necessary for the given instance of contact.
 
 _Ask yourself / discuss:_ When `save` is called, how will it know whether to run an `INSERT` or `UPDATE` SQL statement?
 
-### `Contact#destroy`
+#### `Contact#destroy`
 
 Executes a `DELETE` SQL command against the database.
 
 _Ask yourself / discuss:_ What will it need to provide the database as part of the `DELETE` SQL statement?
 
-### `Contact.find(id)`
+#### `Contact.find(id)`
 
 A class method to `SELECT` a contact row from the database by `id` and return a `Contact` instance that represents ("maps to") that row.
 
-### `Contact.find_all_by_lastname(name)`
+#### `Contact.find_all_by_lastname(name)`
 
 Another class method, but this one returns an array of all contacts that have the provided last name. If none are found, an empty array should be returned.
 
 It will do an exact string match.
 
-### `Contact.find_all_by_firstname(name)`
+#### `Contact.find_all_by_firstname(name)`
 
 Same as `Contact.find_all_by_lastname(name)` but for last name instead.
 
-### `Contact.find_by_email(email)`
+#### `Contact.find_by_email(email)`
 
 Since emails are assumed to be unique, we return only a single record (or `nil`) here. Hence why we use `find_by_` instead of `find_all_by` for this method name.
 
@@ -109,7 +109,7 @@ The `.find` method will perform the following `SELECT` to retrieve the record fr
 
 Nice, this can power our `show` action in the REPL. When a user asks to see contact #5, our `Application` can use the `Contact.find` to retrieve the contact!
 
-### Searching records
+### Using the `find_by` class methods to search
 
 Using one of the `find_by` class methods, we can also easily search for contacts like so:
 
@@ -137,3 +137,23 @@ _Note:_ Since `same_contact` will no longer point to a valid, existing record in
 Attempting to find contact with id 5 now will naturally not yield a contact (since it was just deleted):
 
     Contact.find(5) # => nil
+
+## Talking to PG from Ruby
+
+Okay, that's great and all, but how do we communicate with our PG database? Good question!
+
+As one may expect, there's a Ruby gem, conveniently coined "pg" to help us with this. The source code for it is hosted on BitBucket (a github alternative):
+
+<https://bitbucket.org/ged/ruby-pg>
+
+### Play around with it first
+
+Before using it for our Contact list app, let's play around with the `pg` gem to get acquainted with how it works.
+
+Create a small ruby script like the one below to communicate with your bookstore database on heroku:
+<https://gist.github.com/kvirani/1400ebd67c31ce3e3893>
+
+_Ask yourself / discuss / experiment:_
+* Do I understand what's going on here?
+* How do I use the gem to perform an INSERT or UPDATE instead? (Hint: Check the gem's docs)
+* Can I modify the script to query the books table instead?
