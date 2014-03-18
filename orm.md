@@ -196,7 +196,7 @@ This way you can work on and commit/push to a separate branch, and merge back to
 
 #### 6. Implement connection logic
 
-All the `orm` methods that need to talk to the PG db need a connection first. Create a `connection` __class method__ on the Contact class that establishes the connection (using the proper heroku credentials)
+All the `orm` methods that need to talk to the PG db need a connection first. Create a `connection` __class method__ on the Contact class that establishes the connection (using the proper heroku credentials) and returns the connection object. Your other methods will just be able to make use of it. This method shouldn't need to take in any parameters.
 
 ### 7. Implement `new` and `save` workflow
 
