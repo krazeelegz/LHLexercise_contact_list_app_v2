@@ -201,7 +201,7 @@ All the `orm` methods that need to talk to the PG db need a connection first. Cr
 
 As you implement this workflow, consider using `irb` or `pry` to "drive" (manually test) your new code. Since this is all pretty new to you, don't worry about TDD or your tests (for now).
 
-A better alternative to manually testing/driving your Contact methods using pry, is to write a short ruby script that runs that code instead, so you don't have to manually launch and run those ruby commands each time you want to test/drive your code.
+A better alternative to manually testing/driving your Contact methods using pry, is to write a short ruby script with driver code that uses the Contact class instead, so you don't have to manually type and run driver code each time you want to test/drive your code.
 
 #### 8. Implement other methods
 
