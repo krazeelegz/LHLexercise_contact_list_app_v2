@@ -1,5 +1,7 @@
 ## Introduction
 
+_IMPORTANT NOTE:_ Read and understand this entire assignment prior to starting.
+
 It would definitely be nice to store the contacts for our recently created app onto the disk, instead of just in an array in the program's runtime memory. This way, the contacts won't disappear when you quit the program.
 
 In order to do this, we will build an mini-ORM of our own, before we start to use "ActiveRecord", the ORM of choice for Ruby / Rails developers.
