@@ -4,7 +4,7 @@ It would definitely be nice to store the contacts for our recently created app o
 
 In order to do this, we will build an mini-ORM of our own, before we start to use "ActiveRecord", the ORM of choice for Ruby / Rails developers.
 
-You may already be storing the contacts in your app by writing them to a CSV file on disk (don't worry if you didn't implement this), which is a bit of work to implement and yet not very flexible. Let's instead use an RDBMS (Relational Database Management System) like PG (PostgreSQL) to store and retrieve our contact records.
+You may already be storing the contacts in your app by writing them to a CSV file on disk (don't worry if you didn't implement this), which is a bit of work to implement and yet not very flexible. Let's instead use an RDBMS (Relational Database Management System) like PG (PostgreSQL) to store and retrieve our contact records as rows within a table (not unlike how books were stored in the bookstore db).
 
 ### What's an ORM?
 
