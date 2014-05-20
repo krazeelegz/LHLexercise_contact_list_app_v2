@@ -1,19 +1,19 @@
 ## Introduction
 
+It would definitely be nice to store the contacts for our recently created app onto the disk, instead of just in an array in the program's runtime memory. This way, the contacts won't disappear when you quit the program.
+
+In order to do this, we will build an mini-ORM of our own, before we start to use "ActiveRecord", the ORM of choice for Ruby / Rails developers.
+
+You may already be storing the contacts in your app by writing them to a CSV file on disk (don't worry if you didn't implement this), which is a bit of work to implement and yet not very flexible. Let's instead use an RDBMS (Relational Database Management System) like PG (PostgreSQL) to store and retrieve our contact records.
+
+### What's an ORM?
+
 Working directly with SQL from Ruby everytime you want to talk to a database is cumbersome and annoying.
 Why? Because in languages like Ruby, we like to work with objects with behavior and properties, not tables, rows and columns.
 
 For this reason, many developers prefer to use an "ORM", an Object-Relational-Mapping.
 
 Wikipedia has a good [overview of ORMs](http://en.wikipedia.org/wiki/Object-relational_mapping) (read the intro and overview sections only).
-
-## Our Goal
-
-It would definitely be nice to store the contacts for our recently created app onto the disk, instead of just in an array in the program's runtime memory. This way, the contacts won't disappear when you quit the program.
-
-In order to do this, we will build an mini-ORM of our own, before we start to use "ActiveRecord", the ORM of choice for Ruby / Rails developers.
-
-You may already be storing the contacts in your app by writing them to a CSV file on disk (don't worry if you didn't implement this), which is a bit of work to implement and yet not very flexible. Let's instead use an RDBMS (Relational Database Management System) like PG (PostgreSQL) to store and retrieve our contact records.
 
 ## Contact class Interface
 
